@@ -194,7 +194,7 @@ impl CommandBuilder {
 
     if let Some(rpc_server_url) = &self.core_url {
       command.args([
-        "--litecoin-rpc-url",
+        "--doriancoin-rpc-url",
         rpc_server_url,
         "--cookie-file",
         self.core_cookie_file.as_ref().unwrap().to_str().unwrap(),

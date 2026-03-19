@@ -59,11 +59,11 @@ impl Env {
 
     fs::create_dir_all(&absolute)?;
 
-    let litecoin_conf = absolute.join("litecoin.conf");
+    let doriancoin_conf = absolute.join("doriancoin.conf");
 
-    if !litecoin_conf.try_exists()? {
+    if !doriancoin_conf.try_exists()? {
       fs::write(
-        litecoin_conf,
+        doriancoin_conf,
         format!(
           "datacarriersize=1000000
 regtest=1
@@ -108,14 +108,14 @@ rpcport={bitcoind_port}
     }
 
     let _bitcoind = KillOnDrop(
-      Command::new("litecoind")
+      Command::new("doriancoind")
         .arg(format!(
           "-conf={}",
-          absolute.join("litecoin.conf").display()
+          absolute.join("doriancoin.conf").display()
         ))
         .stdout(Stdio::null())
         .spawn()
-        .expect("failed to start bitcoind"),
+        .expect("failed to start doriancoind"),
     );
 
     loop {
@@ -187,7 +187,7 @@ rpcport={bitcoind_port}
 
       let receive = serde_json::from_slice::<wallet::receive::Output>(&output.stdout)?;
 
-      let status = Command::new("litecoin-cli")
+      let status = Command::new("doriancoin-cli")
         .arg(format!("-datadir={relative}"))
         .arg("generatetoaddress")
         .arg("200")
@@ -210,7 +210,7 @@ rpcport={bitcoind_port}
       &Info {
         bitcoind_port,
         ord_port,
-        bitcoin_cli_command: vec!["litecoin-cli".into(), format!("-datadir={relative}")],
+        bitcoin_cli_command: vec!["doriancoin-cli".into(), format!("-datadir={relative}")],
         ord_wallet_command: vec![
           ord.to_str().unwrap().into(),
           "--datadir".into(),
@@ -233,11 +233,11 @@ rpcport={bitcoind_port}
       "{}
 {server_url}
 {}
-litecoin-cli -datadir={datadir} getblockchaininfo
+doriancoin-cli -datadir={datadir} getblockchaininfo
 {}
 {} --datadir {datadir} wallet balance",
       "`ord` server URL:".blue().bold(),
-      "Example `litecoin-cli` command:".blue().bold(),
+      "Example `doriancoin-cli` command:".blue().bold(),
       "Example `ord` command:".blue().bold(),
       ord.display(),
     );

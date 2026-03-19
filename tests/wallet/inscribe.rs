@@ -81,7 +81,7 @@ fn inscribe_fails_if_bitcoin_core_is_too_old() {
   CommandBuilder::new("wallet inscribe --file hello.txt --fee-rate 1")
     .write("hello.txt", "HELLOWORLD")
     .expected_exit_code(1)
-    .expected_stderr("error: Litecoin Core 21.0.0 or newer required, current version is 20.0.0\n")
+    .expected_stderr("error: Doriancoin Core 21.0.0 or newer required, current version is 20.0.0\n")
     .core(&core)
     .ord(&ord)
     .run_and_extract_stdout();

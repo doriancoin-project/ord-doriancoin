@@ -3,11 +3,11 @@ use {super::*, bitcoincore_rpc::Auth};
 #[derive(Default, Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(default, deny_unknown_fields)]
 pub struct Settings {
-  litecoin_data_dir: Option<PathBuf>,
-  litecoin_rpc_limit: Option<u32>,
-  litecoin_rpc_password: Option<String>,
-  litecoin_rpc_url: Option<String>,
-  litecoin_rpc_username: Option<String>,
+  doriancoin_data_dir: Option<PathBuf>,
+  doriancoin_rpc_limit: Option<u32>,
+  doriancoin_rpc_password: Option<String>,
+  doriancoin_rpc_url: Option<String>,
+  doriancoin_rpc_username: Option<String>,
   chain: Option<Chain>,
   commit_interval: Option<usize>,
   config: Option<PathBuf>,
@@ -89,11 +89,11 @@ impl Settings {
     let settings = settings.or(config).or_defaults()?;
 
     match (
-      &settings.litecoin_rpc_username,
-      &settings.litecoin_rpc_password,
+      &settings.doriancoin_rpc_username,
+      &settings.doriancoin_rpc_password,
     ) {
-      (None, Some(_rpc_pass)) => bail!("no litecoin RPC username specified"),
-      (Some(_rpc_user), None) => bail!("no litecoin RPC password specified"),
+      (None, Some(_rpc_pass)) => bail!("no doriancoin RPC username specified"),
+      (Some(_rpc_user), None) => bail!("no doriancoin RPC password specified"),
       _ => {}
     };
 
@@ -108,11 +108,11 @@ impl Settings {
 
   pub fn or(self, source: Settings) -> Self {
     Self {
-      litecoin_data_dir: self.litecoin_data_dir.or(source.litecoin_data_dir),
-      litecoin_rpc_limit: self.litecoin_rpc_limit.or(source.litecoin_rpc_limit),
-      litecoin_rpc_password: self.litecoin_rpc_password.or(source.litecoin_rpc_password),
-      litecoin_rpc_url: self.litecoin_rpc_url.or(source.litecoin_rpc_url),
-      litecoin_rpc_username: self.litecoin_rpc_username.or(source.litecoin_rpc_username),
+      doriancoin_data_dir: self.doriancoin_data_dir.or(source.doriancoin_data_dir),
+      doriancoin_rpc_limit: self.doriancoin_rpc_limit.or(source.doriancoin_rpc_limit),
+      doriancoin_rpc_password: self.doriancoin_rpc_password.or(source.doriancoin_rpc_password),
+      doriancoin_rpc_url: self.doriancoin_rpc_url.or(source.doriancoin_rpc_url),
+      doriancoin_rpc_username: self.doriancoin_rpc_username.or(source.doriancoin_rpc_username),
       chain: self.chain.or(source.chain),
       commit_interval: self.commit_interval.or(source.commit_interval),
       config: self.config.or(source.config),
@@ -146,11 +146,11 @@ impl Settings {
 
   pub fn from_options(options: Options) -> Self {
     Self {
-      litecoin_data_dir: options.litecoin_data_dir,
-      litecoin_rpc_limit: options.litecoin_rpc_limit,
-      litecoin_rpc_password: options.litecoin_rpc_password,
-      litecoin_rpc_url: options.litecoin_rpc_url,
-      litecoin_rpc_username: options.litecoin_rpc_username,
+      doriancoin_data_dir: options.doriancoin_data_dir,
+      doriancoin_rpc_limit: options.doriancoin_rpc_limit,
+      doriancoin_rpc_password: options.doriancoin_rpc_password,
+      doriancoin_rpc_url: options.doriancoin_rpc_url,
+      doriancoin_rpc_username: options.doriancoin_rpc_username,
       chain: options
         .signet
         .then_some(Chain::Signet)
@@ -239,11 +239,11 @@ impl Settings {
     };
 
     Ok(Self {
-      litecoin_data_dir: get_path("LITECOIN_DATA_DIR"),
-      litecoin_rpc_limit: get_u32("LITECOIN_RPC_LIMIT")?,
-      litecoin_rpc_password: get_string("LITECOIN_RPC_PASSWORD"),
-      litecoin_rpc_url: get_string("LITECOIN_RPC_URL"),
-      litecoin_rpc_username: get_string("LITECOIN_RPC_USERNAME"),
+      doriancoin_data_dir: get_path("DORIANCOIN_DATA_DIR"),
+      doriancoin_rpc_limit: get_u32("DORIANCOIN_RPC_LIMIT")?,
+      doriancoin_rpc_password: get_string("DORIANCOIN_RPC_PASSWORD"),
+      doriancoin_rpc_url: get_string("DORIANCOIN_RPC_URL"),
+      doriancoin_rpc_username: get_string("DORIANCOIN_RPC_USERNAME"),
       chain: get_chain("CHAIN")?,
       commit_interval: get_usize("COMMIT_INTERVAL")?,
       config: get_path("CONFIG"),
@@ -269,11 +269,11 @@ impl Settings {
 
   pub fn for_env(dir: &Path, rpc_url: &str, server_url: &str) -> Self {
     Self {
-      litecoin_data_dir: Some(dir.into()),
-      litecoin_rpc_password: None,
-      litecoin_rpc_url: Some(rpc_url.into()),
-      litecoin_rpc_username: None,
-      litecoin_rpc_limit: None,
+      doriancoin_data_dir: Some(dir.into()),
+      doriancoin_rpc_password: None,
+      doriancoin_rpc_url: Some(rpc_url.into()),
+      doriancoin_rpc_username: None,
+      doriancoin_rpc_limit: None,
       chain: Some(Chain::Regtest),
       commit_interval: None,
       config: None,
@@ -300,17 +300,17 @@ impl Settings {
   pub fn or_defaults(self) -> Result<Self> {
     let chain = self.chain.unwrap_or_default();
 
-    let bitcoin_data_dir = match &self.litecoin_data_dir {
+    let bitcoin_data_dir = match &self.doriancoin_data_dir {
       Some(bitcoin_data_dir) => bitcoin_data_dir.clone(),
       None => {
         if cfg!(target_os = "linux") {
           dirs::home_dir()
             .ok_or_else(|| anyhow!("failed to get cookie file path: could not get home dir"))?
-            .join(".bitcoin")
+            .join(".doriancoin")
         } else {
           dirs::data_dir()
             .ok_or_else(|| anyhow!("failed to get cookie file path: could not get data dir"))?
-            .join("Bitcoin")
+            .join("Doriancoin")
         }
       }
     };
@@ -331,16 +331,16 @@ impl Settings {
     };
 
     Ok(Self {
-      litecoin_data_dir: Some(bitcoin_data_dir),
-      litecoin_rpc_limit: Some(self.litecoin_rpc_limit.unwrap_or(12)),
-      litecoin_rpc_password: self.litecoin_rpc_password,
-      litecoin_rpc_url: Some(
+      doriancoin_data_dir: Some(bitcoin_data_dir),
+      doriancoin_rpc_limit: Some(self.doriancoin_rpc_limit.unwrap_or(12)),
+      doriancoin_rpc_password: self.doriancoin_rpc_password,
+      doriancoin_rpc_url: Some(
         self
-          .litecoin_rpc_url
+          .doriancoin_rpc_url
           .clone()
           .unwrap_or_else(|| format!("127.0.0.1:{}", chain.default_rpc_port())),
       ),
-      litecoin_rpc_username: self.litecoin_rpc_username,
+      doriancoin_rpc_username: self.doriancoin_rpc_username,
       chain: Some(chain),
       commit_interval: Some(self.commit_interval.unwrap_or(5000)),
       config: None,
@@ -381,9 +381,9 @@ impl Settings {
 
   pub fn bitcoin_credentials(&self) -> Result<Auth> {
     if let Some((user, pass)) = &self
-      .litecoin_rpc_username
+      .doriancoin_rpc_username
       .as_ref()
-      .zip(self.litecoin_rpc_password.as_ref())
+      .zip(self.doriancoin_rpc_password.as_ref())
     {
       Ok(Auth::UserPass((*user).clone(), (*pass).clone()))
     } else {
@@ -397,7 +397,7 @@ impl Settings {
     let bitcoin_credentials = self.bitcoin_credentials()?;
 
     log::trace!(
-      "Connecting to Litecoin Core at {}",
+      "Connecting to Doriancoin Core at {}",
       self.bitcoin_rpc_url(None)
     );
 
@@ -416,7 +416,7 @@ impl Settings {
 
     let client = Client::new(&rpc_url, bitcoin_credentials.clone()).with_context(|| {
       format!(
-        "failed to connect to Litecoin Core RPC at `{rpc_url}` with {}",
+        "failed to connect to Doriancoin Core RPC at `{rpc_url}` with {}",
         match bitcoin_credentials {
           Auth::None => "no credentials".into(),
           Auth::UserPass(_, _) => "username and password".into(),
@@ -434,17 +434,17 @@ impl Settings {
             "test" => Chain::Testnet,
             "regtest" => Chain::Regtest,
             "signet" => Chain::Signet,
-            other => bail!("Litecoin RPC server on unknown chain: {other}"),
+            other => bail!("Doriancoin RPC server on unknown chain: {other}"),
           }
         }
         Err(bitcoincore_rpc::Error::JsonRpc(bitcoincore_rpc::jsonrpc::Error::Rpc(err)))
           if err.code == -28 => {}
-        Err(err) => bail!("Failed to connect to Litecoin Core RPC at `{rpc_url}`:  {err}"),
+        Err(err) => bail!("Failed to connect to Doriancoin Core RPC at `{rpc_url}`:  {err}"),
       }
 
       ensure! {
         checks < 100,
-        "Failed to connect to Litecoin Core RPC at `{rpc_url}`",
+        "Failed to connect to Doriancoin Core RPC at `{rpc_url}`",
       }
 
       checks += 1;
@@ -454,7 +454,7 @@ impl Settings {
     let ord_chain = self.chain();
 
     if rpc_chain != ord_chain {
-      bail!("Litecoin RPC server is on {rpc_chain} but ord is on {ord_chain}");
+      bail!("Doriancoin RPC server is on {rpc_chain} but ord is on {ord_chain}");
     }
 
     Ok(client)
@@ -473,16 +473,16 @@ impl Settings {
       return Ok(cookie_file.clone());
     }
 
-    let path = if let Some(bitcoin_data_dir) = &self.litecoin_data_dir {
+    let path = if let Some(bitcoin_data_dir) = &self.doriancoin_data_dir {
       bitcoin_data_dir.clone()
     } else if cfg!(target_os = "linux") {
       dirs::home_dir()
         .ok_or_else(|| anyhow!("failed to get cookie file path: could not get home dir"))?
-        .join(".litecoin")
+        .join(".doriancoin")
     } else {
       dirs::data_dir()
         .ok_or_else(|| anyhow!("failed to get cookie file path: could not get data dir"))?
-        .join("Litecoin")
+        .join("Doriancoin")
     };
 
     let path = self.chain().join_with_data_dir(path);
@@ -562,7 +562,7 @@ impl Settings {
   }
 
   pub fn bitcoin_rpc_url(&self, wallet_name: Option<String>) -> String {
-    let base_url = self.litecoin_rpc_url.as_ref().unwrap();
+    let base_url = self.doriancoin_rpc_url.as_ref().unwrap();
     match wallet_name {
       Some(wallet_name) => format!("{base_url}/wallet/{wallet_name}"),
       None => format!("{base_url}/"),
@@ -570,7 +570,7 @@ impl Settings {
   }
 
   pub fn bitcoin_rpc_limit(&self) -> u32 {
-    self.litecoin_rpc_limit.unwrap()
+    self.doriancoin_rpc_limit.unwrap()
   }
 
   pub fn server_url(&self) -> Option<&str> {
@@ -611,14 +611,14 @@ mod tests {
     assert_eq!(
       Settings::merge(
         Options {
-          litecoin_rpc_username: Some("foo".into()),
+          doriancoin_rpc_username: Some("foo".into()),
           ..default()
         },
         Default::default(),
       )
       .unwrap_err()
       .to_string(),
-      "no litecoin RPC password specified"
+      "no doriancoin RPC password specified"
     );
   }
 
@@ -627,21 +627,21 @@ mod tests {
     assert_eq!(
       Settings::merge(
         Options {
-          litecoin_rpc_password: Some("foo".into()),
+          doriancoin_rpc_password: Some("foo".into()),
           ..default()
         },
         Default::default(),
       )
       .unwrap_err()
       .to_string(),
-      "no litecoin RPC username specified"
+      "no doriancoin RPC username specified"
     );
   }
 
   #[test]
   fn auth_with_user_and_pass() {
     assert_eq!(
-      parse(&["--litecoin-rpc-username=foo", "--litecoin-rpc-password=bar"])
+      parse(&["--doriancoin-rpc-username=foo", "--doriancoin-rpc-password=bar"])
         .bitcoin_credentials()
         .unwrap(),
       Auth::UserPass("foo".into(), "bar".into())
@@ -651,10 +651,10 @@ mod tests {
   #[test]
   fn auth_with_cookie_file() {
     assert_eq!(
-      parse(&["--cookie-file=/var/lib/Litecoin/.cookie"])
+      parse(&["--cookie-file=/var/lib/Doriancoin/.cookie"])
         .bitcoin_credentials()
         .unwrap(),
-      Auth::CookieFile("/var/lib/Litecoin/.cookie".into())
+      Auth::CookieFile("/var/lib/Doriancoin/.cookie".into())
     );
   }
 
@@ -677,20 +677,20 @@ mod tests {
     let settings = parse(&[
       "--cookie-file",
       core.cookie_file().to_str().unwrap(),
-      "--litecoin-rpc-url",
+      "--doriancoin-rpc-url",
       &core.url(),
     ]);
 
     assert_eq!(
       settings.bitcoin_rpc_client(None).unwrap_err().to_string(),
-      "Litecoin RPC server is on testnet but ord is on mainnet"
+      "Doriancoin RPC server is on testnet but ord is on mainnet"
     );
   }
 
   #[test]
   fn rpc_url_overrides_network() {
     assert_eq!(
-      parse(&["--litecoin-rpc-url=127.0.0.1:1234", "--chain=signet"]).bitcoin_rpc_url(None),
+      parse(&["--doriancoin-rpc-url=127.0.0.1:1234", "--chain=signet"]).bitcoin_rpc_url(None),
       "127.0.0.1:1234/"
     );
   }
@@ -709,7 +709,7 @@ mod tests {
   fn use_default_network() {
     let settings = parse(&[]);
 
-    assert_eq!(settings.bitcoin_rpc_url(None), "127.0.0.1:9332/");
+    assert_eq!(settings.bitcoin_rpc_url(None), "127.0.0.1:1948/");
 
     assert!(settings.cookie_file().unwrap().ends_with(".cookie"));
   }
@@ -739,11 +739,11 @@ mod tests {
     println!("{}", cookie_file);
 
     assert!(cookie_file.ends_with(if cfg!(target_os = "linux") {
-      "/.bitcoin/.cookie"
+      "/.doriancoin/.cookie"
     } else if cfg!(windows) {
-      r"\Bitcoin\.cookie"
+      r"\Doriancoin\.cookie"
     } else {
-      "/Bitcoin/.cookie"
+      "/Doriancoin/.cookie"
     }))
   }
 
@@ -756,17 +756,17 @@ mod tests {
       .to_string();
 
     assert!(cookie_file.ends_with(if cfg!(target_os = "linux") {
-      "/.bitcoin/signet/.cookie"
+      "/.doriancoin/signet/.cookie"
     } else if cfg!(windows) {
-      r"\Bitcoin\signet\.cookie"
+      r"\Doriancoin\signet\.cookie"
     } else {
-      "/Bitcoin/signet/.cookie"
+      "/Doriancoin/signet/.cookie"
     }));
   }
 
   #[test]
   fn cookie_file_defaults_to_bitcoin_data_dir() {
-    let cookie_file = parse(&["--litecoin-data-dir=foo", "--chain=signet"])
+    let cookie_file = parse(&["--doriancoin-data-dir=foo", "--chain=signet"])
       .cookie_file()
       .unwrap()
       .display()
@@ -891,7 +891,7 @@ mod tests {
 
     assert_eq!(
       settings.bitcoin_rpc_url(Some("foo".into())),
-      "127.0.0.1:9332/wallet/foo"
+      "127.0.0.1:1948/wallet/foo"
     );
   }
 
@@ -920,8 +920,8 @@ mod tests {
   #[test]
   fn bitcoin_rpc_and_pass_setting() {
     let config = Settings {
-      litecoin_rpc_username: Some("config_user".into()),
-      litecoin_rpc_password: Some("config_pass".into()),
+      doriancoin_rpc_username: Some("config_user".into()),
+      doriancoin_rpc_password: Some("config_pass".into()),
       ..default()
     };
 
@@ -934,14 +934,14 @@ mod tests {
     assert_eq!(
       Settings::merge(
         Options {
-          litecoin_rpc_username: Some("option_user".into()),
-          litecoin_rpc_password: Some("option_pass".into()),
+          doriancoin_rpc_username: Some("option_user".into()),
+          doriancoin_rpc_password: Some("option_pass".into()),
           config: Some(config_path.clone()),
           ..default()
         },
         vec![
-          ("LITECOIN_RPC_USERNAME".into(), "env_user".into()),
-          ("LITECOIN_RPC_PASSWORD".into(), "env_pass".into()),
+          ("DORIANCOIN_RPC_USERNAME".into(), "env_user".into()),
+          ("DORIANCOIN_RPC_PASSWORD".into(), "env_pass".into()),
         ]
         .into_iter()
         .collect(),
@@ -959,8 +959,8 @@ mod tests {
           ..default()
         },
         vec![
-          ("LITECOIN_RPC_USERNAME".into(), "env_user".into()),
-          ("LITECOIN_RPC_PASSWORD".into(), "env_pass".into()),
+          ("DORIANCOIN_RPC_USERNAME".into(), "env_user".into()),
+          ("DORIANCOIN_RPC_PASSWORD".into(), "env_pass".into()),
         ]
         .into_iter()
         .collect(),
@@ -1002,11 +1002,11 @@ mod tests {
   #[test]
   fn from_env() {
     let env = vec![
-      ("LITECOIN_DATA_DIR", "/litecoin/data/dir"),
-      ("LITECOIN_RPC_LIMIT", "12"),
-      ("LITECOIN_RPC_PASSWORD", "litecoin password"),
-      ("LITECOIN_RPC_URL", "url"),
-      ("LITECOIN_RPC_USERNAME", "litecoin username"),
+      ("DORIANCOIN_DATA_DIR", "/doriancoin/data/dir"),
+      ("DORIANCOIN_RPC_LIMIT", "12"),
+      ("DORIANCOIN_RPC_PASSWORD", "doriancoin password"),
+      ("DORIANCOIN_RPC_URL", "url"),
+      ("DORIANCOIN_RPC_USERNAME", "doriancoin username"),
       ("CHAIN", "signet"),
       ("COMMIT_INTERVAL", "1"),
       ("CONFIG", "config"),
@@ -1035,11 +1035,11 @@ mod tests {
     pretty_assert_eq!(
       Settings::from_env(env).unwrap(),
       Settings {
-        litecoin_data_dir: Some("/litecoin/data/dir".into()),
-        litecoin_rpc_limit: Some(12),
-        litecoin_rpc_password: Some("litecoin password".into()),
-        litecoin_rpc_url: Some("url".into()),
-        litecoin_rpc_username: Some("litecoin username".into()),
+        doriancoin_data_dir: Some("/doriancoin/data/dir".into()),
+        doriancoin_rpc_limit: Some(12),
+        doriancoin_rpc_password: Some("doriancoin password".into()),
+        doriancoin_rpc_url: Some("url".into()),
+        doriancoin_rpc_username: Some("doriancoin username".into()),
         chain: Some(Chain::Signet),
         commit_interval: Some(1),
         config: Some("config".into()),
@@ -1081,11 +1081,11 @@ mod tests {
       Settings::from_options(
         Options::try_parse_from([
           "ord",
-          "--litecoin-data-dir=/litecoin/data/dir",
-          "--litecoin-rpc-limit=12",
-          "--litecoin-rpc-password=litecoin password",
-          "--litecoin-rpc-url=url",
-          "--litecoin-rpc-username=litecoin username",
+          "--doriancoin-data-dir=/doriancoin/data/dir",
+          "--doriancoin-rpc-limit=12",
+          "--doriancoin-rpc-password=doriancoin password",
+          "--doriancoin-rpc-url=url",
+          "--doriancoin-rpc-username=doriancoin username",
           "--chain=signet",
           "--commit-interval=1",
           "--config=config",
@@ -1107,11 +1107,11 @@ mod tests {
         .unwrap()
       ),
       Settings {
-        litecoin_data_dir: Some("/litecoin/data/dir".into()),
-        litecoin_rpc_limit: Some(12),
-        litecoin_rpc_password: Some("litecoin password".into()),
-        litecoin_rpc_url: Some("url".into()),
-        litecoin_rpc_username: Some("litecoin username".into()),
+        doriancoin_data_dir: Some("/doriancoin/data/dir".into()),
+        doriancoin_rpc_limit: Some(12),
+        doriancoin_rpc_password: Some("doriancoin password".into()),
+        doriancoin_rpc_url: Some("url".into()),
+        doriancoin_rpc_username: Some("doriancoin username".into()),
         chain: Some(Chain::Signet),
         commit_interval: Some(1),
         config: Some("config".into()),

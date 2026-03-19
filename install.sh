@@ -24,9 +24,9 @@ OPTIONS:
 EOF
 }
 
-git=ynohtna92/ord-litecoin
+git=doriancoin-project/ord-doriancoin
 crate=ord
-url=https://github.com/ynohtna92/ord-litecoin
+url=https://github.com/doriancoin-project/ord-doriancoin
 releases=$url/releases
 
 say() {
@@ -88,7 +88,7 @@ dest=${dest-"$HOME/bin"}
 if [ -z ${tag-} ]; then
   need cut
 
-  tag=$(curl --proto =https --tlsv1.2 -sSf https://api.github.com/repos/ynohtna92/ord-litecoin/releases/latest |
+  tag=$(curl --proto =https --tlsv1.2 -sSf https://api.github.com/repos/doriancoin-project/ord-doriancoin/releases/latest |
     grep tag_name |
     cut -d'"' -f4
   )
@@ -104,7 +104,7 @@ if [ -z ${target-} ]; then
     *)
       say 'Could not determine target from output of `uname -m`-`uname -s`, please use `--target`:' $uname_target
       say 'Target architecture is not supported by this install script.'
-      say 'Consider opening an issue or building from source: https://github.com/ynohtna92/ord-litecoin'
+      say 'Consider opening an issue or building from source: https://github.com/doriancoin-project/ord-doriancoin'
       exit 1
     ;;
   esac

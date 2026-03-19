@@ -40,17 +40,17 @@ impl Preview {
 
     let rpc_port = TcpListener::bind("127.0.0.1:0")?.local_addr()?.port();
 
-    let litecoin_data_dir = tmpdir.path().join("litecoin");
+    let doriancoin_data_dir = tmpdir.path().join("doriancoin");
 
-    fs::create_dir(&litecoin_data_dir)?;
+    fs::create_dir(&doriancoin_data_dir)?;
 
-    eprintln!("Spawning litecoind…");
+    eprintln!("Spawning doriancoind…");
 
     let _bitcoind = KillOnDrop(
-      Command::new("litecoind")
+      Command::new("doriancoind")
         .arg({
           let mut arg = OsString::from("-datadir=");
-          arg.push(&litecoin_data_dir);
+          arg.push(&doriancoin_data_dir);
           arg
         })
         .arg("-listen=0")
@@ -59,12 +59,12 @@ impl Preview {
         .arg("-txindex")
         .arg(format!("-rpcport={rpc_port}"))
         .spawn()
-        .context("failed to spawn `litecoind`")?,
+        .context("failed to spawn `doriancoind`")?,
     );
 
     let options = Options {
       chain_argument: Chain::Regtest,
-      litecoin_data_dir: Some(litecoin_data_dir),
+      doriancoin_data_dir: Some(doriancoin_data_dir),
       data_dir: tmpdir.path().into(),
       rpc_url: Some(format!("127.0.0.1:{rpc_port}")),
       index_sats: true,
@@ -77,7 +77,7 @@ impl Preview {
       }
 
       if attempt == 100 {
-        panic!("Litecoin Core RPC did not respond");
+        panic!("Doriancoin Core RPC did not respond");
       }
 
       thread::sleep(Duration::from_millis(100));

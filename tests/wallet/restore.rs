@@ -1,6 +1,6 @@
 // use {super::*, ord::subcommand::wallet::create};
 //
-// #[ignore] // Litecoincore does not support descriptors
+// #[ignore] // Doriancoincore does not support descriptors
 // #[test]
 // fn restore_generates_same_descriptors() {
 //   let (mnemonic, descriptors) = {

@@ -24,17 +24,17 @@ pub(crate) enum Subcommand {
   Balances,
   #[command(about = "Decode a transaction")]
   Decode(decode::Decode),
-  #[command(about = "Start a regtest ord and litecoind instance")]
+  #[command(about = "Start a regtest ord and doriancoind instance")]
   Env(env::Env),
-  #[command(about = "List the first litoshis of each reward epoch")]
+  #[command(about = "List the first dorishis of each reward epoch")]
   Epochs,
-  #[command(about = "Find a litoshi's current location")]
+  #[command(about = "Find a dorishi's current location")]
   Find(find::Find),
   #[command(subcommand, about = "Index commands")]
   Index(index::IndexSubcommand),
-  #[command(about = "List the litoshi in an output")]
+  #[command(about = "List the dorishi in an output")]
   List(list::List),
-  #[command(about = "Parse a litoshi from ordinal notation")]
+  #[command(about = "Parse a dorishi from ordinal notation")]
   Parse(parse::Parse),
   #[command(about = "List all runes")]
   Runes,
@@ -44,15 +44,15 @@ pub(crate) enum Subcommand {
   Settings,
   #[command(about = "Display information about a block's subsidy")]
   Subsidy(subsidy::Subsidy),
-  #[command(about = "Display Litecoin supply information")]
+  #[command(about = "Display Doriancoin supply information")]
   Supply,
   #[command(about = "Generate teleburn addresses")]
   Teleburn(teleburn::Teleburn),
-  #[command(about = "Display litoshi traits")]
+  #[command(about = "Display dorishi traits")]
   Traits(traits::Traits),
   #[command(about = "Wallet commands")]
   Wallet(wallet::WalletCommand),
-  #[command(about = "List all Bitcoin Core wallets")]
+  #[command(about = "List all Doriancoin Core wallets")]
   Wallets,
 }
 

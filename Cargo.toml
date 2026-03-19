@@ -1,12 +1,12 @@
 [package]
 name = "ord-litecoin"
-description = "◉ Ordinal wallet and block explorer for litecoin"
+description = "◉ Ordinal wallet and block explorer for doriancoin"
 version = "0.20.1"
 license = "CC0-1.0"
 edition = "2021"
 autotests = false
-homepage = "https://github.com/ynohtna92/ord-litecoin"
-repository = "https://github.com/ynohtna92/ord-litecoin"
+homepage = "https://github.com/doriancoin-project/ord-doriancoin"
+repository = "https://github.com/doriancoin-project/ord-doriancoin"
 autobins = false
 rust-version = "1.76.0"
 
@@ -94,5 +94,5 @@ name = "integration"
 path = "tests/lib.rs"
 
 [patch.crates-io]
-bitcoin = { git = "https://github.com/ynohtna92/rust-litecoin" }
-bitcoincore-rpc = { git = "https://github.com/ynohtna92/rust-bitcoincore-rpc" }
+bitcoin = { git = "https://github.com/doriancoin-project/rust-doriancoin" }
+bitcoincore-rpc = { git = "https://github.com/doriancoin-project/rust-doriancoincore-rpc" }

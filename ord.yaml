@@ -2,15 +2,15 @@
 
 # see `ord --help` for setting documentation
 
-litecoin_data_dir: /var/lib/litecoin
-litecoin_rpc_password: bar
-litecoin_rpc_url: https://localhost:8000
-litecoin_rpc_username: foo
+doriancoin_data_dir: /var/lib/doriancoin
+doriancoin_rpc_password: bar
+doriancoin_rpc_url: https://localhost:8000
+doriancoin_rpc_username: foo
 chain: mainnet
 commit_interval: 10000
 config: /var/lib/ord/ord.yaml
 config_dir: /var/lib/ord
-cookie_file: /var/lib/litecoin/.cookie
+cookie_file: /var/lib/doriancoin/.cookie
 data_dir: /var/lib/ord
 height_limit: 1000
 hidden:

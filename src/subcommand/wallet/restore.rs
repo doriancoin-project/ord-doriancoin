@@ -17,8 +17,8 @@ enum Source {
 impl Restore {
   pub(crate) fn run(self, _name: String, _settings: &Settings) -> SubcommandResult {
     bail!(
-      "Descriptor wallets are not supported in Litecoincore 21.2.1, copy your wallet.dat into \
-      your Litecoincore data directory."
+      "Descriptor wallets are not supported in Doriancoincore, copy your wallet.dat into \
+      your Doriancoincore data directory."
     );
 
     // ensure!(

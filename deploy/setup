@@ -39,22 +39,22 @@ ufw allow ssh
 
 case $CHAIN in
   main)
-    COOKIE_FILE_DIR=/var/lib/litecoind
+    COOKIE_FILE_DIR=/var/lib/doriancoind
     CSP_ORIGIN=ordinals.com
-    ufw allow 9333
+    ufw allow 1949
     ;;
   regtest)
-    COOKIE_FILE_DIR=/var/lib/litecoind/regtest
+    COOKIE_FILE_DIR=/var/lib/doriancoind/regtest
     CSP_ORIGIN=regtest.ordinals.com
     ufw allow 18444
     ;;
   signet)
-    COOKIE_FILE_DIR=/var/lib/litecoind/signet
+    COOKIE_FILE_DIR=/var/lib/doriancoind/signet
     CSP_ORIGIN=signet.ordinals.com
     ufw allow 39333
     ;;
   test)
-    COOKIE_FILE_DIR=/var/lib/litecoind/testnet3
+    COOKIE_FILE_DIR=/var/lib/doriancoind/testnet3
     CSP_ORIGIN=testnet.ordinals.com
     ufw allow 19333
     ;;
@@ -65,11 +65,11 @@ case $CHAIN in
 esac
 
 mkdir -p \
-  /etc/systemd/system/litecoind.service.d \
+  /etc/systemd/system/doriancoind.service.d \
   /etc/systemd/system/ord.service.d
 
 printf "[Service]\nEnvironment=CHAIN=%s\nEnvironment=CSP_ORIGIN=%s\n" $CHAIN $CSP_ORIGIN \
-  | tee /etc/systemd/system/litecoind.service.d/override.conf \
+  | tee /etc/systemd/system/doriancoind.service.d/override.conf \
   > /etc/systemd/system/ord.service.d/override.conf
 
 sed -i -E 's/#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
@@ -78,13 +78,15 @@ systemctl restart sshd
 
 ufw --force enable
 
-if ! which litecoind; then
-  ./bin/install-litecoin-core-linux
+if ! which doriancoind; then
+  # TODO: add install script for doriancoin core
+  echo "doriancoind not found, please install doriancoin core manually"
+  exit 1
 fi
 
-litecoind --version
+doriancoind --version
 
-chown bitcoin:bitcoin /var/lib/bitcoind/settings.json
+chown doriancoin:doriancoin /var/lib/doriancoind/settings.json
 
 if [[ ! -e ~/.cargo/env ]]; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -97,29 +99,29 @@ rustup update stable
 cargo build --release
 install --backup target/release/ord /usr/local/bin/ord
 
-id --user litecoin || useradd --system litecoin
+id --user doriancoin || useradd --system doriancoin
 id --user ord || useradd --system ord
 
-cp deploy/litecoind.service /etc/systemd/system/
+cp deploy/doriancoind.service /etc/systemd/system/
 
-mkdir -p /etc/litecoin
-cp deploy/litecoin.conf /etc/litecoin/litecoin.conf
+mkdir -p /etc/doriancoin
+cp deploy/doriancoin.conf /etc/doriancoin/doriancoin.conf
 
-if [[ ! -e ~/.litecoin/litecoin.conf ]]; then
-  mkdir -p ~/.litecoin
-  ln -s /etc/litecoin/litecoin.conf ~/.litecoin/litecoin.conf
+if [[ ! -e ~/.doriancoin/doriancoin.conf ]]; then
+  mkdir -p ~/.doriancoin
+  ln -s /etc/doriancoin/doriancoin.conf ~/.doriancoin/doriancoin.conf
 fi
 
 systemctl daemon-reload
-systemctl enable litecoind
-systemctl restart litecoind
+systemctl enable doriancoind
+systemctl restart doriancoind
 
 while [[ ! -f $COOKIE_FILE_DIR/.cookie ]]; do
-  echo "Waiting for litecoind…"
+  echo "Waiting for doriancoind…"
   sleep 1
 done
 
-setfacl -m ord:x /var/lib/litecoind
+setfacl -m ord:x /var/lib/doriancoind
 setfacl -m ord:x $COOKIE_FILE_DIR
 setfacl -dm ord:r $COOKIE_FILE_DIR
 setfacl -m ord:r $COOKIE_FILE_DIR/.cookie

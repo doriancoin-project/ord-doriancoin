@@ -2232,7 +2232,7 @@ mod tests {
 
       let mut args = vec!["ord".to_string()];
 
-      args.push("--litecoin-rpc-url".into());
+      args.push("--doriancoin-rpc-url".into());
       args.push(core.url());
 
       args.push("--cookie-file".into());
@@ -4237,7 +4237,7 @@ mod tests {
       StatusCode::OK,
       ".*
       <a href=/clock title=clock>.*</a>
-      <a href=https://ynohtna92.github.io/ord-litecoin/.*",
+      <a href=https://doriancoin-project.github.io/ord-doriancoin/.*",
     );
   }
 

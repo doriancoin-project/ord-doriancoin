@@ -469,7 +469,7 @@ impl Wallet {
       None,
     )?;
 
-    // Functionally not supported with Litecoincore v21
+    // Functionally not supported with Doriancoincore v21
     // let network = settings.chain().network();
     //
     // let secp = Secp256k1::new();
@@ -546,7 +546,7 @@ impl Wallet {
     let bitcoin_version = client.version()?;
     if bitcoin_version < MIN_VERSION {
       bail!(
-        "Litecoin Core {} or newer required, current version is {}",
+        "Doriancoin Core {} or newer required, current version is {}",
         Self::format_bitcoin_core_version(MIN_VERSION),
         Self::format_bitcoin_core_version(bitcoin_version),
       );

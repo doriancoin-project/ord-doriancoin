@@ -41,7 +41,7 @@ impl TestServer {
       .port();
 
     let (settings, server) = parse_ord_server_args(&format!(
-      "ord --litecoin-rpc-url {} --cookie-file {} --litecoin-data-dir {} --datadir {} {} server {} --http-port {port} --address 127.0.0.1",
+      "ord --doriancoin-rpc-url {} --cookie-file {} --doriancoin-data-dir {} --datadir {} {} server {} --http-port {port} --address 127.0.0.1",
       core.url(),
       cookiefile.to_str().unwrap(),
       tempdir.path().display(),

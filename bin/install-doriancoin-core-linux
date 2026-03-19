@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+# TODO: Update version and download URL once doriancoin releases are available
+echo "ERROR: Doriancoin Core binaries must be built from source or downloaded manually."
+echo "See https://github.com/doriancoin-project/doriancoin for build instructions."
+exit 1

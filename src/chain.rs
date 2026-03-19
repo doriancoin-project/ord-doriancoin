@@ -19,7 +19,7 @@ impl Chain {
 
   pub(crate) fn default_rpc_port(self) -> u16 {
     match self {
-      Self::Mainnet => 9332,
+      Self::Mainnet => 1948,
       Self::Regtest => 19443,
       Self::Signet => 39332,
       Self::Testnet => 19332,
@@ -35,10 +35,10 @@ impl Chain {
 
   pub(crate) fn first_inscription_height(self) -> u32 {
     match self {
-      Self::Mainnet => 2424429,
+      Self::Mainnet => 0,
       Self::Regtest => 0,
-      Self::Signet => 112402,
-      Self::Testnet => 2669127,
+      Self::Signet => 0,
+      Self::Testnet => 0,
     }
   }
 
@@ -48,10 +48,10 @@ impl Chain {
 
   pub(crate) fn jubilee_height(self) -> u32 {
     match self {
-      Self::Mainnet => 2608704,
-      Self::Regtest => 110,
-      Self::Signet => 3096576,
-      Self::Testnet => 3096576,
+      Self::Mainnet => 0,
+      Self::Regtest => 0,
+      Self::Signet => 0,
+      Self::Testnet => 0,
     }
   }
 

@@ -7,22 +7,22 @@ use super::*;
     .args(&["chain_argument", "signet", "regtest", "testnet"]),
 ))]
 pub struct Options {
-  #[arg(long, help = "Load Litecoin Core data dir from <LITECOIN_DATA_DIR>.")]
-  pub(crate) litecoin_data_dir: Option<PathBuf>,
+  #[arg(long, help = "Load Doriancoin Core data dir from <DORIANCOIN_DATA_DIR>.")]
+  pub(crate) doriancoin_data_dir: Option<PathBuf>,
   #[arg(
     long,
-    help = "Authenticate to Litecoin Core RPC with <LITECOIN_RPC_PASSWORD>."
+    help = "Authenticate to Doriancoin Core RPC with <DORIANCOIN_RPC_PASSWORD>."
   )]
-  pub(crate) litecoin_rpc_password: Option<String>,
-  #[arg(long, help = "Connect to Litecoin Core RPC at <LITECOIN_RPC_URL>.")]
-  pub(crate) litecoin_rpc_url: Option<String>,
+  pub(crate) doriancoin_rpc_password: Option<String>,
+  #[arg(long, help = "Connect to Doriancoin Core RPC at <DORIANCOIN_RPC_URL>.")]
+  pub(crate) doriancoin_rpc_url: Option<String>,
   #[arg(
     long,
-    help = "Authenticate to Litecoin Core RPC as <LITECOIN_RPC_USERNAME>."
+    help = "Authenticate to Doriancoin Core RPC as <DORIANCOIN_RPC_USERNAME>."
   )]
-  pub(crate) litecoin_rpc_username: Option<String>,
+  pub(crate) doriancoin_rpc_username: Option<String>,
   #[arg(long, help = "Max <N> requests in flight. [default: 12]")]
-  pub(crate) litecoin_rpc_limit: Option<u32>,
+  pub(crate) doriancoin_rpc_limit: Option<u32>,
   #[arg(long = "chain", value_enum, help = "Use <CHAIN>. [default: mainnet]")]
   pub(crate) chain_argument: Option<Chain>,
   #[arg(
@@ -34,7 +34,7 @@ pub struct Options {
   pub(crate) config: Option<PathBuf>,
   #[arg(long, help = "Load configuration from <CONFIG_DIR>.")]
   pub(crate) config_dir: Option<PathBuf>,
-  #[arg(long, help = "Load Litecoin Core RPC cookie file from <COOKIE_FILE>.")]
+  #[arg(long, help = "Load Doriancoin Core RPC cookie file from <COOKIE_FILE>.")]
   pub(crate) cookie_file: Option<PathBuf>,
   #[arg(long, alias = "datadir", help = "Store index in <DATA_DIR>.")]
   pub(crate) data_dir: Option<PathBuf>,

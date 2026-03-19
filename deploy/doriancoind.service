@@ -1,17 +1,17 @@
 [Unit]
 After=network-online.target
-Description=litecoindaemon
-Documentation=https://github.com/litecoin/litecoin/blob/master/doc/init.md
+Description=doriancoindaemon
+Documentation=https://github.com/doriancoin/doriancoin/blob/master/doc/init.md
 Wants=network-online.target
 
 [Service]
-ConfigurationDirectory=litecoin
+ConfigurationDirectory=doriancoin
 ConfigurationDirectoryMode=0710
-ExecStart=/usr/local/bin/litecoind \
-  -conf=/etc/litecoin/litecoin.conf \
+ExecStart=/usr/local/bin/doriancoind \
+  -conf=/etc/doriancoin/doriancoin.conf \
   -chain=${CHAIN}
-ExecStartPre=/bin/chgrp litecoin /etc/litecoin
-Group=litecoin
+ExecStartPre=/bin/chgrp doriancoin /etc/doriancoin
+Group=doriancoin
 MemoryDenyWriteExecute=true
 NoNewPrivileges=true
 PermissionsStartOnly=true
@@ -20,14 +20,14 @@ PrivateTmp=true
 ProtectHome=true
 ProtectSystem=full
 Restart=on-failure
-RuntimeDirectory=litecoin
+RuntimeDirectory=doriancoin
 RuntimeDirectoryMode=0710
-StateDirectory=litecoin
+StateDirectory=doriancoin
 StateDirectoryMode=0710
 TimeoutStartSec=infinity
 TimeoutStopSec=600
 Type=simple
-User=litecoin
+User=doriancoin
 
 [Install]
 WantedBy=multi-user.target

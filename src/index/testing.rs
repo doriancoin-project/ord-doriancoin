@@ -21,7 +21,7 @@ impl ContextBuilder {
 
     let command: Vec<OsString> = vec![
       "ord".into(),
-      "--litecoin-rpc-url".into(),
+      "--doriancoin-rpc-url".into(),
       core.url().into(),
       "--datadir".into(),
       tempdir.path().into(),

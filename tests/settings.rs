@@ -6,11 +6,11 @@ fn default() {
     .integration_test(false)
     .stdout_regex(
       r#"\{
-  "litecoin_data_dir": ".*(Bitcoin|bitcoin|Litecoin|litecoin)",
-  "litecoin_rpc_limit": 12,
-  "litecoin_rpc_password": null,
-  "litecoin_rpc_url": "127.0.0.1:9332",
-  "litecoin_rpc_username": null,
+  "doriancoin_data_dir": ".*(Doriancoin|doriancoin)",
+  "doriancoin_rpc_limit": 12,
+  "doriancoin_rpc_password": null,
+  "doriancoin_rpc_url": "127.0.0.1:1948",
+  "doriancoin_rpc_username": null,
   "chain": "mainnet",
   "commit_interval": 5000,
   "config": null,

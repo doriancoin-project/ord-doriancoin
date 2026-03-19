@@ -600,16 +600,16 @@ fn expected_sat_time_is_rounded() {
 fn missing_credentials() {
   let core = mockcore::spawn();
 
-  CommandBuilder::new("--litecoin-rpc-username foo server")
+  CommandBuilder::new("--doriancoin-rpc-username foo server")
     .core(&core)
     .expected_exit_code(1)
-    .expected_stderr("error: no litecoin RPC password specified\n")
+    .expected_stderr("error: no doriancoin RPC password specified\n")
     .run_and_extract_stdout();
 
-  CommandBuilder::new("--litecoin-rpc-password bar server")
+  CommandBuilder::new("--doriancoin-rpc-password bar server")
     .core(&core)
     .expected_exit_code(1)
-    .expected_stderr("error: no litecoin RPC username specified\n")
+    .expected_stderr("error: no doriancoin RPC username specified\n")
     .run_and_extract_stdout();
 }
 

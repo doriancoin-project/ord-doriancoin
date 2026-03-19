@@ -34,7 +34,7 @@ impl Create {
       warn += "Passphrase is not used in wallet creation as descriptor wallets are not supported.";
     }
     warn += "Ord wallet created! The mnemonic above is not used as descriptor wallets are not \
-      supported in Litecoincore!!!! Please make a backup of the \
+      supported in Doriancoincore!!!! Please make a backup of the \
       wallet.dat file and store it in a safe place.";
 
     Ok(Some(Box::new(Output {
