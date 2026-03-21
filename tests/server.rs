@@ -42,7 +42,7 @@ fn address_page_shows_outputs_and_sat_balance() {
   create_wallet(&core, &ord);
   core.mine_blocks(1);
 
-  let address = "ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9";
+  let address = "dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l";
 
   let send = CommandBuilder::new(format!("wallet send --fee-rate 13.3 {address} 2btc"))
     .core(&core)
@@ -250,7 +250,7 @@ fn inscription_page() {
   <dt>id</dt>
   <dd class=monospace>{inscription}</dd>
   <dt>address</dt>
-  <dd class=monospace><a href=/address/ltc1.*>ltc1.*</a></dd>
+  <dd class=monospace><a href=/address/dsv1.*>dsv1.*</a></dd>
   <dt>value</dt>
   <dd>10000</dd>
   <dt>preview</dt>
@@ -367,7 +367,7 @@ fn inscription_page_after_send() {
   );
 
   let txid = CommandBuilder::new(format!(
-    "wallet send --fee-rate 1 ltc1qcqgs2pps4u4yedfyl5pysdjjncs8et5u0vraeu {inscription}"
+    "wallet send --fee-rate 1 dsv1qcqgs2pps4u4yedfyl5pysdjjncs8et5ujhchqx {inscription}"
   ))
   .core(&core)
   .ord(&ord)
@@ -380,7 +380,7 @@ fn inscription_page_after_send() {
   ord.assert_response_regex(
     format!("/inscription/{inscription}"),
     format!(
-      r".*<h1>Inscription 0</h1>.*<dt>address</dt>\s*<dd class=monospace><a href=/address/ltc1qcqgs2pps4u4yedfyl5pysdjjncs8et5u0vraeu>ltc1qcqgs2pps4u4yedfyl5pysdjjncs8et5u0vraeu</a></dd>.*<dt>location</dt>\s*<dd><a class=monospace href=/satpoint/{txid}:0:0>{txid}:0:0</a></dd>.*",
+      r".*<h1>Inscription 0</h1>.*<dt>address</dt>\s*<dd class=monospace><a href=/address/dsv1qcqgs2pps4u4yedfyl5pysdjjncs8et5ujhchqx>dsv1qcqgs2pps4u4yedfyl5pysdjjncs8et5ujhchqx</a></dd>.*<dt>location</dt>\s*<dd><a class=monospace href=/satpoint/{txid}:0:0>{txid}:0:0</a></dd>.*",
     ),
   )
 }
@@ -497,7 +497,7 @@ fn recursive_inscription_endpoint() {
   let mut inscription_recursive_json: api::InscriptionRecursive =
     serde_json::from_str(&response.text().unwrap()).unwrap();
 
-  assert_regex_match!(inscription_recursive_json.address.unwrap(), r"ltc1p.*");
+  assert_regex_match!(inscription_recursive_json.address.unwrap(), r"dsv1p.*");
   inscription_recursive_json.address = None;
 
   pretty_assert_eq!(

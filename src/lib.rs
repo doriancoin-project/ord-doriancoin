@@ -30,7 +30,6 @@ use {
     tally::Tally,
   },
   anyhow::{anyhow, bail, ensure, Context, Error},
-  bip39::Mnemonic,
   bitcoin::{
     address::{Address, NetworkUnchecked},
     blockdata::{

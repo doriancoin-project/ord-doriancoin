@@ -15,7 +15,7 @@ fn inscriptions_can_be_sent() {
   core.mine_blocks(1);
 
   let output = CommandBuilder::new(format!(
-    "wallet send --fee-rate 1 ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk {inscription}",
+    "wallet send --fee-rate 1 dsv1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggs30w3v {inscription}",
   ))
   .core(&core)
   .ord(&ord)
@@ -58,7 +58,7 @@ fn send_unknown_inscription() {
   let txid = core.mine_blocks(1)[0].txdata[0].txid();
 
   CommandBuilder::new(format!(
-    "wallet send --fee-rate 1 ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk {txid}i0"
+    "wallet send --fee-rate 1 dsv1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggs30w3v {txid}i0"
   ))
   .core(&core)
   .ord(&ord)
@@ -82,7 +82,7 @@ fn send_inscribed_inscription() {
   core.mine_blocks(1);
 
   let output = CommandBuilder::new(format!(
-    "wallet send --fee-rate 1 ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk {inscription}",
+    "wallet send --fee-rate 1 dsv1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggs30w3v {inscription}",
   ))
   .core(&core)
   .ord(&ord)
@@ -139,7 +139,7 @@ fn send_inscription_by_sat() {
 
   let sat = sat_list.iter().find(|s| s.output.txid == txid).unwrap().sat;
 
-  let address = "ltc1qcqgs2pps4u4yedfyl5pysdjjncs8et5u0vraeu";
+  let address = "dsv1qcqgs2pps4u4yedfyl5pysdjjncs8et5ujhchqx";
 
   let output = CommandBuilder::new(format!("wallet send --fee-rate 1 {address} {}", sat.name()))
     .core(&core)
@@ -172,7 +172,7 @@ fn send_on_mainnnet_works_with_wallet_named_foo() {
     .run_and_deserialize_output::<Create>();
 
   CommandBuilder::new(format!(
-    "wallet --name foo send --fee-rate 1 ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk {txid}:0:0"
+    "wallet --name foo send --fee-rate 1 dsv1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggs30w3v {txid}:0:0"
   ))
   .core(&core)
   .ord(&ord)
@@ -190,12 +190,12 @@ fn send_addresses_must_be_valid_for_network() {
   let txid = core.mine_blocks_with_subsidy(1, 1_000)[0].txdata[0].txid();
 
   CommandBuilder::new(format!(
-    "wallet send --fee-rate 1 tltc1qfk58sxvnsy27ww6408qr3h7294anh7kqn8rn2r {txid}:0:0"
+    "wallet send --fee-rate 1 tdsv1qfk58sxvnsy27ww6408qr3h7294anh7kqwucene {txid}:0:0"
   ))
   .core(&core)
     .ord(&ord)
   .expected_stderr(
-    "error: address tltc1qfk58sxvnsy27ww6408qr3h7294anh7kqn8rn2r belongs to network testnet which is different from required bitcoin\n",
+    "error: address tdsv1qfk58sxvnsy27ww6408qr3h7294anh7kqwucene belongs to network testnet which is different from required bitcoin\n",
   )
   .expected_exit_code(1)
   .run_and_extract_stdout();
@@ -212,7 +212,7 @@ fn send_on_mainnnet_works_with_wallet_named_ord() {
   let txid = core.mine_blocks_with_subsidy(1, 1_000_000)[0].txdata[0].txid();
 
   let output = CommandBuilder::new(format!(
-    "wallet send --fee-rate 1 ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk {txid}:0:0"
+    "wallet send --fee-rate 1 dsv1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggs30w3v {txid}:0:0"
   ))
   .core(&core)
   .ord(&ord)
@@ -240,7 +240,7 @@ fn send_does_not_use_inscribed_sats_as_cardinal_utxos() {
 
   let txid = core.mine_blocks_with_subsidy(1, 100)[0].txdata[0].txid();
   CommandBuilder::new(format!(
-    "wallet send --fee-rate 1 ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk {txid}:0:0"
+    "wallet send --fee-rate 1 dsv1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggs30w3v {txid}:0:0"
   ))
   .core(&core)
     .ord(&ord)

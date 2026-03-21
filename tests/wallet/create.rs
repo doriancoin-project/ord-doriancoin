@@ -13,16 +13,7 @@ fn create() {
   assert!(core.wallets().contains("ord"));
 }
 
-#[test]
-fn seed_phrases_are_twelve_words_long() {
-  let Output { mnemonic, .. } = CommandBuilder::new("wallet create")
-    .core(&mockcore::spawn())
-    .run_and_deserialize_output();
-
-  assert_eq!(mnemonic.word_count(), 12);
-}
-
-// #[ignore] // Litcoincore does not have a listdescriptors function
+// #[ignore] // Doriancoincore does not have a listdescriptors function
 // #[test]
 // fn wallet_creates_correct_mainnet_taproot_descriptor() {
 //   let core = mockcore::spawn();

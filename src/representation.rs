@@ -20,7 +20,7 @@ impl Representation {
     (
       self,
       match self {
-        Self::Address => r"^(ltc|LTC|tltc|TLTC|rltc|RLTC)1.*$",
+        Self::Address => r"^(dsv|DSV|tdsv|TDSV|rdsv|RDSV)1.*$",
         Self::Decimal => r"^.*\..*$",
         Self::Degree => r"^.*°.*′.*″(.*‴)?$",
         Self::Hash => r"^[[:xdigit:]]{64}$",

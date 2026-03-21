@@ -605,10 +605,10 @@ fn batch_inscribe_fails_if_invalid_network_destination_address() {
 
   CommandBuilder::new("--regtest wallet batch --fee-rate 2.1 --batch batch.yaml")
     .write("inscription.txt", "Hello World")
-    .write("batch.yaml", "mode: separate-outputs\ninscriptions:\n- file: inscription.txt\n  destination: ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9")
+    .write("batch.yaml", "mode: separate-outputs\ninscriptions:\n- file: inscription.txt\n  destination: dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l")
     .core(&core)
     .ord(&ord)
-    .stderr_regex("error: address ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9 belongs to network bitcoin which is different from required regtest\n")
+    .stderr_regex("error: address dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l belongs to network bitcoin which is different from required regtest\n")
     .expected_exit_code(1)
     .run_and_extract_stdout();
 }
@@ -626,7 +626,7 @@ fn batch_inscribe_fails_with_shared_output_or_same_sat_and_destination_set() {
   CommandBuilder::new("wallet batch --fee-rate 2.1 --batch batch.yaml")
     .write("inscription.txt", "Hello World")
     .write("tulip.png", "")
-    .write("batch.yaml", "mode: shared-output\ninscriptions:\n- file: inscription.txt\n  destination: ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9\n- file: tulip.png")
+    .write("batch.yaml", "mode: shared-output\ninscriptions:\n- file: inscription.txt\n  destination: dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l\n- file: tulip.png")
     .core(&core)
     .ord(&ord)
     .expected_exit_code(1)
@@ -636,7 +636,7 @@ fn batch_inscribe_fails_with_shared_output_or_same_sat_and_destination_set() {
   CommandBuilder::new("wallet batch --fee-rate 2.1 --batch batch.yaml")
     .write("inscription.txt", "Hello World")
     .write("tulip.png", "")
-    .write("batch.yaml", "mode: same-sat\nsat: 5000000000\ninscriptions:\n- file: inscription.txt\n  destination: ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9\n- file: tulip.png")
+    .write("batch.yaml", "mode: same-sat\nsat: 5000000000\ninscriptions:\n- file: inscription.txt\n  destination: dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l\n- file: tulip.png")
     .core(&core)
     .ord(&ord)
     .expected_exit_code(1)
@@ -664,10 +664,10 @@ fn batch_inscribe_works_with_some_destinations_set_and_others_not() {
 mode: separate-outputs
 inscriptions:
 - file: inscription.txt
-  destination: ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9
+  destination: dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l
 - file: tulip.png
 - file: meow.wav
-  destination: ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9
+  destination: dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l
 ",
     )
     .core(&core)
@@ -682,7 +682,7 @@ inscriptions:
     format!("/inscription/{}", output.inscriptions[0].id),
     ".*
   <dt>address</dt>
-  <dd class=monospace><a href=/address/ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9>ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9</a></dd>.*",
+  <dd class=monospace><a href=/address/dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l>dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l</a></dd>.*",
   );
 
   ord.assert_response_regex(
@@ -699,7 +699,7 @@ inscriptions:
     format!("/inscription/{}", output.inscriptions[2].id),
     ".*
   <dt>address</dt>
-  <dd class=monospace><a href=/address/ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9>ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9</a></dd>.*",
+  <dd class=monospace><a href=/address/dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l>dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l</a></dd>.*",
   );
 }
 

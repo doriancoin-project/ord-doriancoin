@@ -40,22 +40,22 @@ ufw allow ssh
 case $CHAIN in
   main)
     COOKIE_FILE_DIR=/var/lib/doriancoind
-    CSP_ORIGIN=ordinals.com
+    CSP_ORIGIN=ordinals.doriancoin.org
     ufw allow 1949
     ;;
   regtest)
     COOKIE_FILE_DIR=/var/lib/doriancoind/regtest
-    CSP_ORIGIN=regtest.ordinals.com
+    CSP_ORIGIN=regtest.ordinals.doriancoin.org
     ufw allow 18444
     ;;
   signet)
     COOKIE_FILE_DIR=/var/lib/doriancoind/signet
-    CSP_ORIGIN=signet.ordinals.com
+    CSP_ORIGIN=signet.ordinals.doriancoin.org
     ufw allow 39333
     ;;
   test)
     COOKIE_FILE_DIR=/var/lib/doriancoind/testnet3
-    CSP_ORIGIN=testnet.ordinals.com
+    CSP_ORIGIN=testnet.ordinals.doriancoin.org
     ufw allow 19333
     ;;
   *)
@@ -86,7 +86,9 @@ fi
 
 doriancoind --version
 
-chown doriancoin:doriancoin /var/lib/doriancoind/settings.json
+if [[ -e /var/lib/doriancoind/settings.json ]]; then
+  chown doriancoin:doriancoin /var/lib/doriancoind/settings.json
+fi
 
 if [[ ! -e ~/.cargo/env ]]; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y

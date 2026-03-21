@@ -179,7 +179,7 @@ impl Sat {
     let mut epochs_since_cycle_start =
       relationship % DIFFCHANGE_INTERVAL / HALVING_INCREMENT as u32;
 
-    // Remap epoch since cycle start due to negative relationship on Litcoin
+    // Remap epoch since cycle start due to negative relationship on Doriancoin
     if epochs_since_cycle_start == 2 {
       epochs_since_cycle_start = 1;
     } else if epochs_since_cycle_start == 1 {
@@ -250,8 +250,6 @@ impl Sat {
 
     let last = Sat::LAST.n() as f64;
 
-    println!("{}", percentile);
-
     let n = (percentile / 100.0 * last).round();
 
     if n > last {
@@ -320,7 +318,7 @@ impl Display for ErrorKind {
       Self::EpochOffset => write!(f, "invalid epoch offset"),
       Self::EpochPeriodMismatch => write!(
         f,
-        "relationship between epoch offset and period offset must be multiple of 336"
+        "relationship between epoch offset and period offset must be multiple of 672"
       ),
       Self::ParseInt { source } => write!(f, "invalid integer: {source}"),
       Self::ParseFloat { source } => write!(f, "invalid float: {source}"),
@@ -733,7 +731,10 @@ mod tests {
     "101%".parse::<Sat>().unwrap_err();
   }
 
-  // #[ignore] // Not important, we can fix this later. Failing due to bigger number space
+  // TODO: Fix percentile round-trip for Doriancoin's larger number space.
+  // Sat::LAST (8399999990759999) exceeds f64's ~15.9-digit precision, causing
+  // lossy round-trips through from_percentile/percentile. Needs integer-based
+  // conversion to fix properly.
   // #[test]
   // fn percentile_round_trip() {
   //   #[track_caller]

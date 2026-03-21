@@ -122,6 +122,7 @@ rpcport={bitcoind_port}
       if absolute.join("regtest/.cookie").try_exists()? {
         break;
       }
+      std::thread::sleep(std::time::Duration::from_millis(100));
     }
 
     let rpc_url = format!("http://localhost:{bitcoind_port}");

@@ -6809,7 +6809,7 @@ next
         },
         timestamp: 2,
         value: Some(50 * COIN_VALUE),
-        address: Some("rltc1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqnmxrc5".to_string())
+        address: Some("rdsv1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwqafpw".to_string())
       }
     );
 
@@ -6839,7 +6839,7 @@ next
         },
         timestamp: 2,
         value: Some(50 * COIN_VALUE),
-        address: Some("rltc1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqnmxrc5".to_string())
+        address: Some("rdsv1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwqafpw".to_string())
       }
     );
 
@@ -6862,7 +6862,7 @@ next
         },
         timestamp: 2,
         value: Some(50 * COIN_VALUE),
-        address: Some("rltc1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqnmxrc5".to_string())
+        address: Some("rdsv1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwqafpw".to_string())
       }
     );
   }
@@ -7103,7 +7103,7 @@ next
         },
         timestamp: 2,
         value: Some(50 * COIN_VALUE),
-        address: Some("rltc1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqnmxrc5".to_string())
+        address: Some("rdsv1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwqafpw".to_string())
       }
     );
 

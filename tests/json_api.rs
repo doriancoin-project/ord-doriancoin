@@ -150,7 +150,7 @@ fn get_inscription() {
 
   let mut inscription_json: api::Inscription =
     serde_json::from_str(&response.text().unwrap()).unwrap();
-  assert_regex_match!(inscription_json.address.unwrap(), r"ltc1p.*");
+  assert_regex_match!(inscription_json.address.unwrap(), r"dsv1p.*");
   inscription_json.address = None;
 
   pretty_assert_eq!(

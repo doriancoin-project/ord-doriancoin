@@ -4,7 +4,7 @@ use {
   std::ops::Deref,
 };
 
-// #[ignore] // Litcoincore does not have a listdescriptors function
+// #[ignore] // Doriancoincore does not have a listdescriptors function
 // #[test]
 // fn inscribe_creates_inscriptions() {
 //   let core = mockcore::spawn();
@@ -510,13 +510,13 @@ fn inscribe_to_address_on_different_network() {
   core.mine_blocks(1);
 
   CommandBuilder::new(
-    "wallet inscribe --destination tltc1qsgx55dp6gn53tsmyjjv4c2ye403hgxynlcdnrj --file degenerate.png --fee-rate 1"
+    "wallet inscribe --destination tdsv1qsgx55dp6gn53tsmyjjv4c2ye403hgxynzrke6g --file degenerate.png --fee-rate 1"
   )
   .write("degenerate.png", [1; 520])
   .core(&core)
   .ord(&ord)
   .expected_exit_code(1)
-  .stderr_regex("error: address tltc1qsgx55dp6gn53tsmyjjv4c2ye403hgxynlcdnrj belongs to network testnet which is different from required bitcoin\n")
+  .stderr_regex("error: address tdsv1qsgx55dp6gn53tsmyjjv4c2ye403hgxynzrke6g belongs to network testnet which is different from required bitcoin\n")
   .run_and_extract_stdout();
 }
 
@@ -1234,7 +1234,7 @@ fn inscription_with_delegate_returns_effective_content_type() {
 
   let inscription_json: api::Inscription =
     serde_json::from_str(&json_response.text().unwrap()).unwrap();
-  assert_regex_match!(inscription_json.address.unwrap(), r"ltc1p.*");
+  assert_regex_match!(inscription_json.address.unwrap(), r"dsv1p.*");
 
   assert_eq!(inscription_json.content_type, Some("audio/wav".to_string()));
   assert_eq!(

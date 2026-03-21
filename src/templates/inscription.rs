@@ -103,7 +103,7 @@ mod tests {
         <dl>
           .*
           <dt>address</dt>
-          <dd class=monospace><a href=/address/ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9>ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9</a></dd>
+          <dd class=monospace><a href=/address/dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l>dsv1qw508d6qejxtdg4y5r3zarvary0c5xw7k4qgl2l</a></dd>
           <dt>value</dt>
           <dd>1</dd>
           .*

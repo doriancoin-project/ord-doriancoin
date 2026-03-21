@@ -1,5 +1,5 @@
 [package]
-name = "ord-litecoin"
+name = "ord-doriancoin"
 description = "◉ Ordinal wallet and block explorer for doriancoin"
 version = "0.20.1"
 license = "CC0-1.0"
