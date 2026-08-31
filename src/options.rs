@@ -7,7 +7,10 @@ use super::*;
     .args(&["chain_argument", "signet", "regtest", "testnet"]),
 ))]
 pub struct Options {
-  #[arg(long, help = "Load Doriancoin Core data dir from <DORIANCOIN_DATA_DIR>.")]
+  #[arg(
+    long,
+    help = "Load Doriancoin Core data dir from <DORIANCOIN_DATA_DIR>."
+  )]
   pub(crate) doriancoin_data_dir: Option<PathBuf>,
   #[arg(
     long,
@@ -34,7 +37,10 @@ pub struct Options {
   pub(crate) config: Option<PathBuf>,
   #[arg(long, help = "Load configuration from <CONFIG_DIR>.")]
   pub(crate) config_dir: Option<PathBuf>,
-  #[arg(long, help = "Load Doriancoin Core RPC cookie file from <COOKIE_FILE>.")]
+  #[arg(
+    long,
+    help = "Load Doriancoin Core RPC cookie file from <COOKIE_FILE>."
+  )]
   pub(crate) cookie_file: Option<PathBuf>,
   #[arg(long, alias = "datadir", help = "Store index in <DATA_DIR>.")]
   pub(crate) data_dir: Option<PathBuf>,

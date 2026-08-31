@@ -110,9 +110,13 @@ impl Settings {
     Self {
       doriancoin_data_dir: self.doriancoin_data_dir.or(source.doriancoin_data_dir),
       doriancoin_rpc_limit: self.doriancoin_rpc_limit.or(source.doriancoin_rpc_limit),
-      doriancoin_rpc_password: self.doriancoin_rpc_password.or(source.doriancoin_rpc_password),
+      doriancoin_rpc_password: self
+        .doriancoin_rpc_password
+        .or(source.doriancoin_rpc_password),
       doriancoin_rpc_url: self.doriancoin_rpc_url.or(source.doriancoin_rpc_url),
-      doriancoin_rpc_username: self.doriancoin_rpc_username.or(source.doriancoin_rpc_username),
+      doriancoin_rpc_username: self
+        .doriancoin_rpc_username
+        .or(source.doriancoin_rpc_username),
       chain: self.chain.or(source.chain),
       commit_interval: self.commit_interval.or(source.commit_interval),
       config: self.config.or(source.config),
@@ -641,9 +645,12 @@ mod tests {
   #[test]
   fn auth_with_user_and_pass() {
     assert_eq!(
-      parse(&["--doriancoin-rpc-username=foo", "--doriancoin-rpc-password=bar"])
-        .bitcoin_credentials()
-        .unwrap(),
+      parse(&[
+        "--doriancoin-rpc-username=foo",
+        "--doriancoin-rpc-password=bar"
+      ])
+      .bitcoin_credentials()
+      .unwrap(),
       Auth::UserPass("foo".into(), "bar".into())
     );
   }
