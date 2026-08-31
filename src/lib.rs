@@ -33,7 +33,10 @@ use {
   bitcoin::{
     address::{Address, NetworkUnchecked},
     blockdata::{
-      constants::{DIFFCHANGE_INTERVAL, MAX_SCRIPT_ELEMENT_SIZE, SUBSIDY_HALVING_INTERVAL},
+      constants::{
+        DIFFCHANGE_INTERVAL, MAX_SCRIPT_ELEMENT_SIZE, SUBSIDY_HALVING_INTERVAL,
+        TARGET_BLOCK_SPACING,
+      },
       locktime::absolute::LockTime,
     },
     consensus::{self, Decodable, Encodable},
