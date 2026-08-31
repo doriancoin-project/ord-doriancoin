@@ -1,0 +1,6 @@
+# Pinned so that new lints and rustfmt style changes in a fresh stable release
+# cannot turn CI red on their own. CI sets RUSTFLAGS=--deny warnings, so a
+# newly-added lint is a build failure, not a warning. Bump this deliberately.
+[toolchain]
+channel = "1.94.0"
+components = ["clippy", "rustfmt"]
