@@ -5991,13 +5991,9 @@ mod tests {
         .unwrap()
         .unwrap();
 
-      assert!(Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Cursed));
+      assert!(Charm::charms(entry.charms).contains(&Charm::Cursed));
 
-      assert!(!Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Vindicated));
+      assert!(!Charm::charms(entry.charms).contains(&Charm::Vindicated));
 
       let sat = entry.sat;
 
@@ -6025,13 +6021,9 @@ mod tests {
 
       assert_eq!(entry.inscription_number, 0);
 
-      assert!(!Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Cursed));
+      assert!(!Charm::charms(entry.charms).contains(&Charm::Cursed));
 
-      assert!(!Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Vindicated));
+      assert!(!Charm::charms(entry.charms).contains(&Charm::Vindicated));
 
       assert_eq!(sat, entry.sat);
 
@@ -6055,13 +6047,9 @@ mod tests {
         .unwrap()
         .unwrap();
 
-      assert!(Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Cursed));
+      assert!(Charm::charms(entry.charms).contains(&Charm::Cursed));
 
-      assert!(!Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Vindicated));
+      assert!(!Charm::charms(entry.charms).contains(&Charm::Vindicated));
 
       assert_eq!(entry.inscription_number, -2);
 
@@ -6102,13 +6090,9 @@ mod tests {
         .unwrap()
         .unwrap();
 
-      assert!(!Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Cursed));
+      assert!(!Charm::charms(entry.charms).contains(&Charm::Cursed));
 
-      assert!(Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Vindicated));
+      assert!(Charm::charms(entry.charms).contains(&Charm::Vindicated));
 
       let sat = entry.sat;
 
@@ -6134,13 +6118,9 @@ mod tests {
         .unwrap()
         .unwrap();
 
-      assert!(!Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Cursed));
+      assert!(!Charm::charms(entry.charms).contains(&Charm::Cursed));
 
-      assert!(!Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Vindicated));
+      assert!(!Charm::charms(entry.charms).contains(&Charm::Vindicated));
 
       assert_eq!(entry.inscription_number, 1);
 
@@ -6166,13 +6146,9 @@ mod tests {
         .unwrap()
         .unwrap();
 
-      assert!(!Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Cursed));
+      assert!(!Charm::charms(entry.charms).contains(&Charm::Cursed));
 
-      assert!(Charm::charms(entry.charms)
-        .iter()
-        .any(|charm| *charm == Charm::Vindicated));
+      assert!(Charm::charms(entry.charms).contains(&Charm::Vindicated));
 
       assert_eq!(entry.inscription_number, 2);
 
