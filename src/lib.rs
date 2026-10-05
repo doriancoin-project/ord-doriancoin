@@ -202,7 +202,9 @@ fn unbound_outpoint() -> OutPoint {
 }
 
 fn uncheck(address: &Address) -> Address<NetworkUnchecked> {
-  address.to_string().parse().unwrap()
+  // Round-tripping through a string panics on base58 addresses that start
+  // with `DSV1`, which the parser mistakes for bech32.
+  Address::new(address.network, address.payload.clone())
 }
 
 fn default<T: Default>() -> T {
@@ -318,5 +320,26 @@ pub fn main() {
       }
       gracefully_shut_down_indexer();
     }
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use {super::*, bitcoin::address::Payload};
+
+  #[test]
+  fn uncheck_base58_address_with_bech32_prefix() {
+    let address = Address::new(
+      Network::Bitcoin,
+      Payload::PubkeyHash(
+        Hash::from_slice(
+          &bitcoin::base58::decode_check("DSV1wAPDhxdxTxzjwLtsrgggopTrne2M3j").unwrap()[1..],
+        )
+        .unwrap(),
+      ),
+    );
+
+    assert_eq!(address.to_string(), "DSV1wAPDhxdxTxzjwLtsrgggopTrne2M3j");
+    assert_eq!(uncheck(&address).assume_checked(), address);
   }
 }
